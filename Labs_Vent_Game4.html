@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <title>ABG Labs Vent Game 4</title>
+  <link rel="stylesheet" type="text/css" href="https://www.wisc-online.com/ARISE_Files/CSS/AriseMainCSS.css?random=losdpfmp">
+</head>
+<body>
+<main>
+  <section><!-- Patient Information -->
+    <table id="patientInfoTable">
+      <tr>
+        <th>Patient Name</th>
+        <th>DOB</th>
+        <th>MR#</th>
+      </tr>
+      <tr>
+        <td><span id="ptntNameOutput"></span></td>
+        <td><span id="ptntDOBOutput"></span></td>
+        <td><span id="ptntMROutput"></span></td>
+      </tr>
+      <tr>
+        <th>Allergies</th>
+        <th>Height(cm)</th>
+        <th>Admission Weight(kg)</th>
+      </tr>
+      <tr>
+        <td><span id="ptntAllergyOutput"></span></td>
+        <td><span id="ptntHeightOutput"></span></td>
+        <td><span id="ptntWeightOutput"></span></td>
+      </tr>
+    </table>
+  </section><!-- End Patient Information -->
+  <h1>Laboratory Results</h1>
+  <section>
+    <table class="labResults">
+      <thead>
+        <tr>
+          <th class="labType" colspan="4">Arterial Blood Gas (ABG)</th>
+        </tr>
+        <tr>
+          <th class="colTest"></th>
+          <th class="colTime1">Today 30 minutes ago</th>
+          <th class="colUnits">Units</th>
+          <th class="colRange">Reference Range</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>pH</td>
+            <td><span class="labsRed">7.31</span></td> 
+            <td></td> 
+            <td>7.35-7.45</td>
+          </tr>
+          <tr>
+            <td>PaCO<sub>2</sub></td>
+            <td><span class="labsRed">52</span></td> 
+            <td>mmHg</td> 
+            <td>35-45</td>
+          </tr>
+          <tr>
+            <td>PaO<sub>2</sub></td>
+            <td><span class="labsRed">142</span></td> 
+            <td>mmHg</td> 
+            <td>80-100</td>
+          </tr>
+          <tr>
+            <td>HCO<sub>3</sub></td>
+            <td>28</td> 
+            <td>mmol/L</td> 
+            <td>22-26</td>
+          </tr>
+          <tr>
+            <td>Base Excess</td>
+            <td>+3</td> 
+            <td>mmol/L</td> 
+            <td>o+/-2</td>
+          </tr>
+          <tr>
+            <td>SaO<sub>2</sub></td>
+            <td>95</td>
+            <td>%</td> 
+            <td></td>
+          </tr>
+          <tr>
+            <td>Site = &reg; Radial</td>
+            <td colspan="2">Modified Allen's test = &#10004;</td>
+            <td>&percnt; O<sub>2</sub> = 75</td>
+          </tr>
+        </tbody>
+    </table>
+  </section>
+</main>
+<script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/PatrickArmstrong_Vent.js"></script>
+<script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/suggestedVentSettings/js/ventSettings.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <title>ABG Question</title>
+    <link rel="stylesheet" type="text/css" href="https://www.wisc-online.com/ARISE_Files/CSS/newSeriousGameStyles.css?bob=212">
+    <style>
+      
+    </style>
+  </head>
+  <body class="ptntEducation">
+    <main>
+      <div class="instructions">
+        <p>Instructions:  Interpret the ABG and select the correct response.</p>
+      </div>
+      
+      <img src="" width="60%" alt="picture???">
+
+      <div id="flexContainer">
+        <button type="button" id="btnimage" class="btnImage">View Larger Image</button>
+      </div>
+      
+      <table class="question">
+        <tr>
+          <td class="number">1.</td>
+          <td class="desc">What is the interpretation of this Arterial Blood Gas?</td>
+        </tr>
+      </table>
+
+      <div class="answerContainer">
+        
+      </div>
+      
+    </main>
+    <script type="text/javascript">
+      var ARIS = {};
+      
+      const CORRECT_PLAQUE = 148031;
+      const EXIT_DIAGLOUE = 102488;
+      const IMAGE_PLAQUE = 148030;
+      const INCORRECT_PLAQUE = 148032;
+      const INCORRECT_PLAQUE2 = 148033;
+      
+      var answerContainer = document.querySelector(".answerContainer");
+      
+      var exitBtn = '<div id="flexContainerExit"><button type="button" class="btnExit" id="btnExit">Exit Game <span class="exitArrow">›</span></button></div>';
+      
+      //
+      // Quick and dirty way of randomizing the question order without having
+      //  to build all of the elements in javascript
+      //
+      var answersArray = [
+        '<div id="flexContainer"><button type="button" class="btnY btnanswer">Partially Compensated Respiratory Acidosis with hyperoxygenation <span class="arrow">></span></button></div>',
+        '<div id="flexContainer"><button type="button" class="btnN btnanswer" id="incorrect1">Uncompensated Respiratory Acidosis with hyperoxygenation <span class="arrow">></span></button></div>',
+        '<div id="flexContainer"><button type="button" class="btnN btnanswer" id="incorrect2">Mixed Acidosis with hyperoxygenation <span class="arrow">></span></button></div>',
+        '<div id="flexContainer"><button type="button" class="btnN btnanswer" id="incorrect3">None of these aree correct <span class="arrow">></span></button></div>'
+      ];
+      
+      answersArray = shuffleArray(answersArray);
+      
+      var answerString = answersArray[0] + answersArray[1] + answersArray[2] + answersArray[3] + exitBtn;
+      
+      answerContainer.innerHTML = answerString;
+      
+      //
+      // End Shuffling questions
+      //
+      
+      
+      var correctBtns = document.querySelectorAll(".btnY");
+      var incorrectBtns = document.querySelectorAll(".btnN");
+      
+      var answerBtns = document.querySelectorAll(".btnanswer");
+      
+      for (var i = 0; i < answerBtns.length; i++) {
+        
+        answerBtns[i].addEventListener("touchstart", function() {
+          
+         this.style.background = "#bfbfbf";  
+          
+        }, false);
+        
+        answerBtns[i].addEventListener("touchend", function() {
+          
+          var element = this;
+          
+          setTimeout(function() {
+            element.style.background = "#799936";
+          }, 1500);
+          
+        }, false);
+      }
+      
+      ARIS.ready = function () {
+        
+        var incorrect1_id = ARIS.cache.idForItemName("incorrect1");
+        var incorrect2_id = ARIS.cache.idForItemName("incorrect2");
+        var incorrect3_id = ARIS.cache.idForItemName("incorrect3");
+        
+        var incorrect1_qty = ARIS.cache.getPlayerItemCount(incorrect1_id);
+        var incorrect2_qty = ARIS.cache.getPlayerItemCount(incorrect2_id);
+        var incorrect3_qty = ARIS.cache.getPlayerItemCount(incorrect3_id);
+        
+        var incorrectCnt_id = ARIS.cache.idForItemName("incorrectCount");
+        var incorrectCnt_qty = ARIS.cache.getPlayerItemCount(incorrectCnt_id);
+        
+        if (incorrect1_qty) {
+          console.log("Inside incorrect 1 IF");
+          document.getElementById("incorrect1").style.display = "none";
+        }
+        
+        if (incorrect2_qty) {
+          document.getElementById("incorrect2").style.display = "none";
+        }
+        
+        if (incorrect3_qty) {
+          document.getElementById("incorrect3").style.display = "none";
+        }
+        
+        // Make correct answer go to the correct plaque
+        for (var i = 0; i < correctBtns.length; i++) {
+        
+          correctBtns[i].addEventListener("click", sendToCorrect, false);
+        }
+        
+        // make the incorrect answer go to the incorrect plaque
+        for (var i = 0; i < incorrectBtns.length; i++) {
+        
+          incorrectBtns[i].addEventListener("click", function () {
+
+            if (incorrectCnt_qty >= 2) {
+              ARIS.exitToPlaque(INCORRECT_PLAQUE2);
+            } else {
+              sendToIncorrect(this.id);
+            }
+            
+          }, false);
+        }
+        
+        // Send to the larger image
+        document.getElementById("btnimage").onclick = function () {
+          ARIS.exitToPlaque(IMAGE_PLAQUE);
+        }
+        
+        // exit button
+        document.getElementById("btnExit").onclick = function () {
+          
+          ARIS.exitToDialog(EXIT_DIAGLOUE);
+        }
+        
+      };
+      
+      function sendToCorrect() {
+        ARIS.exitToPlaque(CORRECT_PLAQUE);
+      }
+      
+      function sendToIncorrect(buttonID) {
+        recordIncorrectGuess(buttonID);
+        ARIS.exitToPlaque(INCORRECT_PLAQUE);
+      }
+      
+      function recordIncorrectGuess(buttonID) {
+        var btn_id = ARIS.cache.idForItemName(buttonID);
+        
+        ARIS.giveItemCount(btn_id, 1);
+        
+      }
+      
+      // code from: https://github.com/Daplie/knuth-shuffle/blob/master/index.js
+      function shuffleArray(array) {
+       var currentIndex = array.length, 
+            temporaryValue, 
+            randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+      }
+      
+
+    </script>
+  </body>
+</html>

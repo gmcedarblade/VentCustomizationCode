@@ -299,9 +299,9 @@ var GamePlayScene = function(game, stage, args)
     console.log(fdisp(in_peep, 1));
     console.log(fdisp(in_oxy, 2));
 
-    if(fdisp(in_volume, 3) < 0.600 || fdisp(in_volume, 3) > 0.600) { console.log("vol");  return false; }
+    if(fdisp(in_volume, 3) < 0.599 || fdisp(in_volume, 3) > 0.601) { console.log("vol");  return false; }
     if(fdisp(in_rate, 1) < 17.5 || fdisp(in_rate,1) > 24.5) { console.log("rate");  return false; }
-    if(fdisp(in_peep, 1) < 8 || fdisp(in_peep,1) > 8) { console.log("peep"); return false; }
+    if(fdisp(in_peep, 1) < 7.8 || fdisp(in_peep,1) > 8.2) { console.log("peep"); return false; }
     if(fdisp(in_oxy, 2) < 39.5 || fdisp(in_oxy, 2) > 55.5) { console.log("oxy");  return false; }
     // what the code was before for note
     //if(in_flow) { console.log("flow"); return false; }
@@ -1029,7 +1029,7 @@ var GamePlayScene = function(game, stage, args)
       function(){return fdisp(min_in_alarm_pressure,0);},
       function(){return fdisp(max_in_alarm_pressure,0);},
       "Pressure",
-      "cm Hâ‚‚O"
+      "cm H₂O"
       );
     pressure_alarm.wx = -0.28;
     pressure_alarm.wy = 0.09;
@@ -1066,7 +1066,7 @@ var GamePlayScene = function(game, stage, args)
       function(){return fdisp(out_exhale_minute_volume,1);},
       function(){return fdisp(min_in_alarm_exhale_minute_volume,1);},
       function(){return fdisp(max_in_alarm_exhale_minute_volume,1);},
-      "VÌ‡E",
+      "V̇E",
       "L/min"
       );
     exhale_minute_volume_alarm.wx = 0.2;
@@ -1139,11 +1139,11 @@ var GamePlayScene = function(game, stage, args)
 
     var x = -0.52+(out_btn_w/2)+0.05;
     var s = out_btn_w+0.02;
-    genOutChannelBtn(OUT_CHANNEL_PEAK_PRESSURE,        "PIP (cm Hâ‚‚O)"  /*"Peak Pressure"*/,        x); x += s;
-    genOutChannelBtn(OUT_CHANNEL_MEAN_PRESSURE,        "MAP (cm Hâ‚‚O)"  /*"Mean Pressure"*/,        x); x += s;
+    genOutChannelBtn(OUT_CHANNEL_PEAK_PRESSURE,        "PIP (cm H₂O)"  /*"Peak Pressure"*/,        x); x += s;
+    genOutChannelBtn(OUT_CHANNEL_MEAN_PRESSURE,        "MAP (cm H₂O)"  /*"Mean Pressure"*/,        x); x += s;
     genOutChannelBtn(OUT_CHANNEL_RATE,                 "Rate (b/min)"  /*"Frequency"*/,            x); x += s;
     genOutChannelBtn(OUT_CHANNEL_EXHALE_VOLUME,        "Exp. Vt (L)"   /*"Exhale Volume"*/,        x); x += s;
-    genOutChannelBtn(OUT_CHANNEL_EXHALE_MINUTE_VOLUME, "VÌ‡E (L/min)"    /*"Exhale Minute Volume"*/, x); x += s;
+    genOutChannelBtn(OUT_CHANNEL_EXHALE_MINUTE_VOLUME, "V̇E (L/min)"    /*"Exhale Minute Volume"*/, x); x += s;
     genOutChannelBtn(OUT_CHANNEL_IE_RATIO,             "I:E"           /*"I:E"*/,                  x); x += s;
     x = -0.5+(in_btn_w/2);
     s = in_btn_w;
@@ -1464,12 +1464,12 @@ var GamePlayScene = function(game, stage, args)
 
       switch(selected_alarm)
       {
-        case IN_ALARM_MIN_PRESSURE:             sub = fdisp(in_alarm_min_pressure,0)            +" cm Hâ‚‚0";  title = "Min Pressure"; break;
-        case IN_ALARM_MAX_PRESSURE:             sub = fdisp(in_alarm_max_pressure,0)            +" cm Hâ‚‚0";  title = "Max Pressure"; break;
+        case IN_ALARM_MIN_PRESSURE:             sub = fdisp(in_alarm_min_pressure,0)            +" cm H₂0";  title = "Min Pressure"; break;
+        case IN_ALARM_MAX_PRESSURE:             sub = fdisp(in_alarm_max_pressure,0)            +" cm H₂0";  title = "Max Pressure"; break;
         case IN_ALARM_MIN_RATE:                 sub = fdisp(in_alarm_min_rate,0)                +" b/min";   title = "Min Rate"; break;
         case IN_ALARM_MAX_RATE:                 sub = fdisp(in_alarm_max_rate,0)                +" b/min";   title = "Max Rate"; break;
-        case IN_ALARM_MIN_EXHALE_MINUTE_VOLUME: sub = fdisp(in_alarm_min_exhale_minute_volume,1)+" L/min";   title = "Min VÌ‡E"; break;
-        case IN_ALARM_MAX_EXHALE_MINUTE_VOLUME: sub = fdisp(in_alarm_max_exhale_minute_volume,1)+" L/min";   title = "Max VÌ‡E"; break;
+        case IN_ALARM_MIN_EXHALE_MINUTE_VOLUME: sub = fdisp(in_alarm_min_exhale_minute_volume,1)+" L/min";   title = "Min V̇E"; break;
+        case IN_ALARM_MAX_EXHALE_MINUTE_VOLUME: sub = fdisp(in_alarm_max_exhale_minute_volume,1)+" L/min";   title = "Max V̇E"; break;
         case IN_ALARM_MIN_APNEA:                sub = fdisp(in_alarm_min_apnea,0)               +" seconds"; title = "Apnea"; break;
         case IN_ALARM_MAX_APNEA:                sub = fdisp(in_alarm_max_apnea,0)               +" seconds"; title = "Apnea"; break;
       }
@@ -1687,7 +1687,7 @@ var GamePlayScene = function(game, stage, args)
           case IN_CHANNEL_FLOW:  sub = fdisp(commit_in_flow,  0)+" l/min";  subsub = fdisp(in_flow,  0)+" l/min";  break;
           case IN_CHANNEL_OXY:   sub = fdisp(commit_in_oxy,   0)+"%";       subsub = fdisp(in_oxy,   0)+"%";       break;
           case IN_CHANNEL_ITIME: sub = fdisp(commit_in_itime, 1)+" sec";    subsub = fdisp(in_itime, 1)+" sec";    break;
-          case IN_CHANNEL_PEEP:  sub = fdisp(commit_in_peep,  1)+" cm Hâ‚‚0"; subsub = fdisp(in_peep,  1)+" cm Hâ‚‚0"; break;
+          case IN_CHANNEL_PEEP:  sub = fdisp(commit_in_peep,  1)+" cm H₂0"; subsub = fdisp(in_peep,  1)+" cm H₂0"; break;
         }
         if(subsub != sub) drawInBtn(in_channel_btns[i],sub,subsub);
         else              drawInBtn(in_channel_btns[i],sub);
@@ -1700,7 +1700,7 @@ var GamePlayScene = function(game, stage, args)
         case IN_CHANNEL_FLOW:  sub = fdisp(in_flow,  0)+" l/min";  break;
         case IN_CHANNEL_OXY:   sub = fdisp(in_oxy,   0)+"%";       break;
         case IN_CHANNEL_ITIME: sub = fdisp(in_itime, 1)+" sec";    break;
-        case IN_CHANNEL_PEEP:  sub = fdisp(in_peep,  1)+" cm Hâ‚‚0"; break;
+        case IN_CHANNEL_PEEP:  sub = fdisp(in_peep,  1)+" cm H₂0"; break;
       }
       ctx.fillStyle = white;
       ctx.fillText(in_channel_btns[selected_channel].title,commit_vent_btn.x,commit_vent_btn.y-40);

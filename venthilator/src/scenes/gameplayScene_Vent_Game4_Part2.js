@@ -1187,7 +1187,8 @@ var GamePlayScene = function(game, stage, args)
 
     commit_alarm_btn = new ButtonBox(0,0,0,0, function()
     {
-      //cur_screen = SCREEN_VENTILATOR;
+      cur_screen = SCREEN_VENTILATOR;
+      update_alarms();
     });
     commit_alarm_btn.title = "Commit Changes";
     commit_alarm_btn.ww = 0.4;

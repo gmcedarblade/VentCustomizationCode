@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <meta charset="utf-8"> <!-- because why not -->
@@ -136,10 +137,17 @@ window.addEventListener("load",begin,false);
   var playerOxygen = 0;
   var playerITime = 0;
   var playerPeep = 0;
-
+  var playerMaxPressure;
+  var playerMinPressure;
+  var playerMaxRate;
+  var playerMinRate;
+  var playerMaxFlow;
+  var playerMinFlow;
+  var playerMaxApnea;
+  var playerMinApnea;
   //Variables for the JSON object
   var myObject, myJSON, text, object;
-
+  var alarmObject, alarmJSON, alarmText, alarmParse;
   function getVentSettings(setVolume, setPressure, setRate, setFlow, setOxygen, setITime, setPeep) {
   
     playerVolume = setVolume;
@@ -149,16 +157,50 @@ window.addEventListener("load",begin,false);
     playerOxygen = setOxygen;
     playerITime = setITime;
     playerPeep = setPeep;
-
     //Storing data
-    myObject = { "volume":playerVolume, "pressure":playerPressure, "rate":playerRate, "flow":playerFlow, "oxygen":playerOxygen, "itime":playerITime, "peep":playerPeep };
+    myObject = { 
+      "volume":playerVolume,
+      "pressure":playerPressure,
+      "rate":playerRate,
+      "flow":playerFlow,
+      "oxygen":playerOxygen,
+      "itime":playerITime,
+      "peep":playerPeep
+    };
     myJSON = JSON.stringify(myObject);
     localStorage.setItem("ventPlayerSet", myJSON);
-
   }
-
+    
+  function getAlarmSettings(setMaxPressure, setMinPressure, setMaxRate, setMinRate, setMaxFlow, setMinFlow, setMaxApnea, setMinApnea) {
+    
+    playerMaxPressure = setMaxPressure;
+    playerMinPressure = setMinPressure;
+    playerMaxRate = setMaxRate;
+    playerMinRate = setMinRate;
+    playerMaxFlow = setMaxFlow;
+    playerMinFlow = setMinFlow;
+    playerMaxApnea = setMaxApnea;
+    playerMinApnea = setMinApnea; 
+    
+    alarmObject = { 
+      "maxPressureAlarm":playerMaxPressure, 
+      "minPressureAlarm":playerMinPressure, 
+      "maxRateAlarm":playerMaxRate,
+      "minRateAlarm":playerMinRate,
+      "maxFlowAlarm":playerMaxFlow,
+      "minFlowAlarm":playerMinFlow,
+      "maxApneaAlarm":playerMaxApnea,
+      "minApneaAlarm":playerMinApnea
+    };
+    
+    alarmJSON = JSON.stringify(alarmObject);
+    localStorage.setItem("alarmPlayerSet", alarmJSON);
+  }
+    
   //Retrieving data
   text = localStorage.getItem("ventPlayerSet");
   object = JSON.parse(text);
+  alarmText = localStorage.getItem("alarmPlayerSet");
+  alarmParse = JSON.parse(alarmText);
   </script>
 </html>
